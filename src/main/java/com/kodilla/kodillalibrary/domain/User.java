@@ -17,7 +17,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(name = "firstName")
     private String name;
@@ -37,6 +37,13 @@ public class User {
     private List<RentedBook> rentedBooks = new ArrayList<>();
 
     public User(String name, String surname, LocalDate accountCreated) {
+        this.name = name;
+        this.surname = surname;
+        this.accountCreated = accountCreated;
+    }
+
+    public User(Long id, String name, String surname, LocalDate accountCreated) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.accountCreated = accountCreated;
