@@ -1,36 +1,48 @@
 package com.kodilla.kodillalibrary.controller;
 
 import com.kodilla.kodillalibrary.domain.BookDto;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.kodilla.kodillalibrary.mapper.BookMapper;
+import com.kodilla.kodillalibrary.service.DbService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/v1/library")
 public class BookController {
+    @Autowired
+    private DbService service;
 
+    @Autowired
+    private BookMapper mapper;
 
+    @RequestMapping(method = RequestMethod.GET, value = "getBooks")
     public List<BookDto> getBooks() {
-        return new ArrayList<>();
+        return mapper.mapToBookDtoList(service.getAllBooks());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getBook")
-    public BookDto getBook (Long bookId) {
-        return new BookDto(1L,"overlord 1 the undead king", "Kagune Maruyama", 2010);
+    public BookDto getBook (@RequestParam Long bookId) {
+        return mapper.mapToBookDto(service.getBookById(bookId));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "DeleteBook")
-    public void removeBook(Long bookId){}
-
-    @RequestMapping(method = RequestMethod.PUT, value = "updateBook")
-    public BookDto updateBook(BookDto bookDto) {
-        return new BookDto(1L, "Overlord part 1, The Undead King", "Kagune Maruyama", 2010);
+    public void removeBook(@RequestParam Long bookId){
+        service.deleteBook(bookId);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "addBook")
-    public void addBook(BookDto bookDto){}
+    @RequestMapping(method = RequestMethod.PUT, value = "updateBook")
+    public void updateBook(@RequestBody BookDto bookDto) {
+        mapper.mapToBookDto(service.saveBook(mapper.mapToBook(bookDto)));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "addBook", consumes = APPLICATION_JSON_VALUE)
+    public void addBook(@RequestBody BookDto bookDto){
+        mapper.mapToBookDto(service.saveBook(mapper.mapToBook(bookDto)));
+    }
 
 }

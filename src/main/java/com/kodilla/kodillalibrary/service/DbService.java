@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +62,10 @@ public class DbService {
 
     public List<RentedBook> getAllRentedBooks() {
         return rentedBookRepository.findAll();
+    }
+
+    public LocalDate getReturnTill(final Long rentedBookId){
+        return rentedBookRepository.findById(rentedBookId).get().getReturnTill();
     }
 
     public RentedBook rentBook(final RentedBook rentedBook) {
