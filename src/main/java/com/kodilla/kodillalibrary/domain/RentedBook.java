@@ -21,11 +21,11 @@ public class RentedBook {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "book_copy_id")
+    @JoinColumn(name = "bookCopyId")
     private BookCopy copy;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private User user;
 
     @NotNull

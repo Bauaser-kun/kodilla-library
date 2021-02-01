@@ -1,26 +1,44 @@
 package com.kodilla.kodillalibrary.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@Entity(name = "user")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue
     private long id;
 
-    @Column(name = "first name")
+    @Column(name = "firstName")
     private String name;
 
-    @Column(name = "family name")
+    @Column(name = "familyName")
     private String surname;
 
-    @Column(name = "registered on")
+    @Column(name = "registeredOn")
     private LocalDate accountCreated;
+
+    @OneToMany(
+            targetEntity = RentedBook.class,
+            mappedBy = "userId",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<RentedBook> rentedBooks = new ArrayList<>();
+
+    public User(String name, String surname, LocalDate accountCreated) {
+        this.name = name;
+        this.surname = surname;
+        this.accountCreated = accountCreated;
+    }
 }
