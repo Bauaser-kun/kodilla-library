@@ -29,7 +29,7 @@ public class BookCopy {
 
     @OneToMany(
             targetEntity = RentedBook.class,
-            mappedBy = "bookCopy",
+            mappedBy = "copy",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
