@@ -3,21 +3,23 @@ package com.kodilla.kodillalibrary.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "BOOK")
 public class Book {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @NotNull
     @Column(name = "title")
@@ -33,12 +35,12 @@ public class Book {
 
     @NotNull
     @OneToMany(
-            targetEntity = BookCopies.class,
+            targetEntity = BookCopy.class,
             mappedBy = "book",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<BookCopies> bookCopiesList = new ArrayList<>();
+    private List<BookCopy> bookCopies = new ArrayList<>();
 
     public Book(String title, String author, int publicationYear) {
         this.title = title;
@@ -54,10 +56,10 @@ public class Book {
     }
 
     public Book(String title, String author, int publicationYear,
-                List<BookCopies> bookCopiesList) {
+                List<BookCopy> bookCopies) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
-        this.bookCopiesList = bookCopiesList;
+        this.bookCopies = bookCopies;
     }
 }
