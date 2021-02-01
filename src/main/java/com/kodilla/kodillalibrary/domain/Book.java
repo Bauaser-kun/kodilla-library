@@ -31,7 +31,7 @@ public class Book {
 
     @NotNull
     @Column(name = "published")
-    private int publicationYear;
+    private Integer publicationYear;
 
     @NotNull
     @OneToMany(

@@ -8,11 +8,13 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-public class UserDto {
-    private long id;
-    private String name;
-    private String surname;
-    private LocalDate accountCreated;
+@AllArgsConstructor
+public class RentedBookDto {
+    private Long id;
+    private Long copyId;
+    private Long userid;
+    private LocalDate rentedOn;
+    private LocalDate returnTill;
 }

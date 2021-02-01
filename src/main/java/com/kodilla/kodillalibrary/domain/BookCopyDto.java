@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-    private long id;
-    private String name;
-    private String surname;
-    private LocalDate accountCreated;
+public class BookCopyDto {
+    private Long id;
+    private Long bookId;
+    private RentalState status;
 }
